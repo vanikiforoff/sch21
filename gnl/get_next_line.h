@@ -14,6 +14,7 @@
 # define GET_NEXT_LINE_H
 
 # define BUF_SIZE 42
+# define FD_MAX 10000
 
 # include "libft/libft.h"
 # include <unistd.h>
@@ -25,9 +26,11 @@
 
 typedef struct 		s_file
 {
-	int		fd;
+	int             fd;
 	char			*rest;
 	struct s_file	*next;
+	struct s_file   *prev;
+	int             base;
 }					t_file;
 
 int					get_next_line(const int fd, char **line);

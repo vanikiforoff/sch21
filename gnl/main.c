@@ -3,15 +3,28 @@
 
 
 int main() {
-	int fd;
+	int fd, fd2;
+	int check;
 	char *line;
 
 	//line = NULL;
+	//line = ft_strnew(1000);
 	fd = open("input.txt", O_RDONLY);
-	get_next_line(fd, &line);
-	printf("%s\n", line);
-	get_next_line(fd, &line);
-	printf("%s\n", line);
-	get_next_line(fd, &line);
-	printf("%s\n", line);
+	fd2 = open("input2.txt", O_RDONLY);
+	check = get_next_line(fd2, &line);
+	printf("%d %d %s\n", check, fd2, line);
+	check = get_next_line(fd2, &line);
+	printf("%d %d %s\n", check, fd2, line);
+	check = get_next_line(fd2, &line);
+	printf("%d %d %s\n", check, fd2, line);
+	check = get_next_line(fd, &line);
+	printf("%d %d %s\n", check, fd, line);
+	check = get_next_line(fd, &line);
+	printf("%d %d %s\n", check, fd, line);
+	check = get_next_line(fd, &line);
+	printf("%d %d %s\n", check, fd, line);
+	check = get_next_line(fd, &line);
+	printf("%d %d %s\n", check, fd, line);
+	check = get_next_line(fd, &line);
+	printf("%d %d %s\n", check, fd, line);
 }
