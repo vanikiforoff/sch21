@@ -12,8 +12,6 @@
 
 #include "libft.h"
 
-//bug on creating list lst_res, after f() changing the original lst
-
 t_list			*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
 {
 	t_list	*lst_res;

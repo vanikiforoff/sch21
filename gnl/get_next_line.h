@@ -6,14 +6,14 @@
 /*   By: sslift <sslift@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 18:12:42 by sslift            #+#    #+#             */
-/*   Updated: 2019/11/26 22:35:22 by sslift           ###   ########.fr       */
+/*   Updated: 2019/11/28 21:32:59 by sslift           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# define BUF_SIZE 42
+# define BUFF_SIZE 42
 # define FD_MAX 10000
 
 # include "libft/libft.h"
@@ -24,13 +24,13 @@
 # include <stdlib.h>
 # include <stdio.h>
 
-typedef struct 		s_file
+typedef struct		s_file
 {
-	int             fd;
+	int				fd;
 	char			*rest;
 	struct s_file	*next;
-	struct s_file   *prev;
-	int             base;
+	struct s_file	*prev;
+	int				base;
 }					t_file;
 
 int					get_next_line(const int fd, char **line);

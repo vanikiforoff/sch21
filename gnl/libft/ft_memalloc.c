@@ -12,8 +12,6 @@
 
 #include "libft.h"
 
-//malloc(size) not *sizeof(void)!!!!!!!!
-
 void	*ft_memalloc(size_t size)
 {
 	void	*mem;
