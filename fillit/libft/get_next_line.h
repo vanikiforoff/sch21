@@ -16,7 +16,6 @@
 # define BUFF_SIZE 42
 # define FD_MAX 10000
 
-# include "libft/libft.h"
 # include <unistd.h>
 # include <sys/types.h>
 # include <sys/stat.h>

@@ -92,5 +92,7 @@ t_list				*ft_lstat(t_list *lst, size_t n);
 char				*ft_arrjoin(char **arr, size_t len, int del);
 char				*ft_intarrjoin(int *arr, size_t len, int del);
 int					get_next_line(const int fd, char **line);
+int		            ft_sqrt(int nb);
+int                 ft_fromBiStringToInteger(char *str);
 
 #endif
