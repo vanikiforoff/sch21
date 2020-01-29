@@ -23,7 +23,7 @@ char    *ft_code(char *str)
 t_tetramino *ft_tetraBase(t_tetramino *tetra)
 {
     while (tetra->order != 1)
-        tetra = tetra->prev;
+    	tetra = tetra->prev;
     return (tetra);
 }
 
@@ -152,25 +152,25 @@ int     ft_mainsearch(t_tetramino *tetra, char **map, int size)
 {
     char    *line;
 
-    printf("Tuta\n");
     if (!tetra)
         return (1);
     line = ft_makeline(tetra, size);
-    printf("%s\n", line);
+    //printf("line %s\n", line);
     while (1)
     {
         tetra->pos++;
-        printf("jj %d\n", tetra->pos);
+        //printf("jj %d order= %d\n", tetra->pos, tetra->order);
         if (tetra->pos + ft_strlen(line) > ft_strlen(*map))
             return (0);
-        printf("check %d\n", ft_check(*map, line, tetra->pos));
+        //printf("check %d\n", ft_check(*map, line, tetra->pos));
         if (ft_check(*map, line, tetra->pos))
         {
             ft_fillmap(line, map, tetra->pos);
-            printf("fill %s\n", *map);
+            //printf("fill %s\n", *map);
             if (!ft_mainsearch(tetra->next, map, size))
             {
                 ft_unfillmap(line, map, tetra->pos);
+                tetra->next->pos = -1;
                 continue ;
             }
             else
@@ -216,7 +216,7 @@ void    fillit(int fd) {
     j = 0;
     while (get_next_line(fd, &line) || j == 4)
     {
-        //printf("%s\n", line);
+        //printf("line %s\n", line);
         if (ft_strlen(line) == 0 || j == 4)
         {
             j = 0;
@@ -232,7 +232,7 @@ void    fillit(int fd) {
                 tmp = tetra;
                 tetra = tetra->next;
                 tetra->prev = tmp;
-                tetra->order = tetra->prev->order++;
+                tetra->order = tetra->prev->order + 1;
             }
             free(code);
             code = ft_strnew(20);
@@ -245,10 +245,10 @@ void    fillit(int fd) {
         }
     }
 
-    printf("Size %d\n", ft_size(tetra));
     //search minimum map size
     tetra = ft_tetraBase(tetra);
-    size = 1;
+	//printf("Size %d\n", ft_size(tetra));
+	size = 1;
     size = ft_max(size, tetra->min_size);
     while (tetra->next)
     {
@@ -263,9 +263,10 @@ void    fillit(int fd) {
     while (1)
     {
         map = ft_makemap(size);
-        printf("Suka %s\n", map);
+        //printf("Suka %s\n", map);
         if (ft_mainsearch(tetra, &map, size))
             break ;
+        tetra->pos = -1;
         size++;
     }
 
