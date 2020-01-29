@@ -94,7 +94,7 @@ void    ft_fillOutputMap(t_tetramino *tetra, char **map, int size)
         while (i < ft_strlen(line))
         {
             if (*(line + i) == '1')
-                **(map + tetra->pos + i) = c;
+                *(*map + tetra->pos + i) = c;
             i++;
         }
         tetra = tetra->next;
@@ -102,10 +102,10 @@ void    ft_fillOutputMap(t_tetramino *tetra, char **map, int size)
     i = 0;
     while (i < ft_strlen(*map))
     {
-        if (**(map + i) == '0')
-            **(map + i) = '.';
-        else if (**(map + i) == '1')
-            **(map + i) = '\n';
+        if (*(*map + i) == '0')
+            *(*map + i) = '.';
+        else if (*(*map + i) == '1')
+            *(*map + i) = '\n';
         i++;
     }
 }
@@ -118,7 +118,7 @@ void    ft_fillmap(char *line, char **map, int pos)
     while (i < ft_strlen(line))
     {
         if (*(line + i) == '1')
-            **(map + pos + i) = '1';
+            *(*map + pos + i) = '1';
         i++;
     }
 }
@@ -130,30 +130,47 @@ void    ft_unfillmap(char *line, char **map, int pos)
     while (i < ft_strlen(line))
     {
         if (*(line + i) == '1')
-            **(map + pos + i) = '0';
+            *(*map + pos + i) = '0';
         i++;
     }
 }
 
-int     ft_mainsearch(t_tetramino *tetra, char *map, int size)
+int     ft_size(t_tetramino *tetra)
+{
+    int i;
+
+    i = 0;
+    while (tetra)
+    {
+        i++;
+        tetra = tetra->next;
+    }
+    return (i);
+}
+
+int     ft_mainsearch(t_tetramino *tetra, char **map, int size)
 {
     char    *line;
 
-    printf("Tuta");
+    printf("Tuta\n");
     if (!tetra)
         return (1);
     line = ft_makeline(tetra, size);
+    printf("%s\n", line);
     while (1)
     {
         tetra->pos++;
-        if (tetra->pos + ft_strlen(line) > ft_strlen(map))
+        printf("jj %d\n", tetra->pos);
+        if (tetra->pos + ft_strlen(line) > ft_strlen(*map))
             return (0);
-        if (ft_check(map, line, tetra->pos))
+        printf("check %d\n", ft_check(*map, line, tetra->pos));
+        if (ft_check(*map, line, tetra->pos))
         {
-            ft_fillmap(line, &map, tetra->pos);
+            ft_fillmap(line, map, tetra->pos);
+            printf("fill %s\n", *map);
             if (!ft_mainsearch(tetra->next, map, size))
             {
-                ft_unfillmap(line, &map, tetra->pos);
+                ft_unfillmap(line, map, tetra->pos);
                 continue ;
             }
             else
@@ -199,7 +216,7 @@ void    fillit(int fd) {
     j = 0;
     while (get_next_line(fd, &line) || j == 4)
     {
-        printf("%s\n", line);
+        //printf("%s\n", line);
         if (ft_strlen(line) == 0 || j == 4)
         {
             j = 0;
@@ -227,8 +244,8 @@ void    fillit(int fd) {
             code = ft_strcat(code, ft_strdup("0"));
         }
     }
-    printf("Cito nie tak");
 
+    printf("Size %d\n", ft_size(tetra));
     //search minimum map size
     tetra = ft_tetraBase(tetra);
     size = 1;
@@ -242,18 +259,16 @@ void    fillit(int fd) {
 
     //to main search
     char *map;
-    printf("Zjopa");
     tetra = ft_tetraBase(tetra);
     while (1)
     {
         map = ft_makemap(size);
-        printf("Suka");
-        if (ft_mainsearch(tetra, map, size))
+        printf("Suka %s\n", map);
+        if (ft_mainsearch(tetra, &map, size))
             break ;
         size++;
     }
 
-    printf("Boom");
     //output
     map = ft_makemap(size);
     ft_fillOutputMap(tetra, &map, size);

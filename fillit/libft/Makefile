@@ -36,7 +36,7 @@ $(NAME): $(SRC_O)
 	@gcc -Wall -Wextra -Werror -c $< -I $(HEADER)
 
 clean:
-	@/bin/rm -f *.o
+	@/bin/rm -f *.o *.gch
 
 fclean: clean
 	@/bin/rm -f $(NAME)
